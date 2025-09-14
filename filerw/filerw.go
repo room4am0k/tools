@@ -5,6 +5,7 @@ package filerw
 
 import "fmt"
 import "os"
+import "strings"
 
 func Write(name string, content string) error{
 	return os.WriteFile(name, []byte(content), 0644)
