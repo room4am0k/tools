@@ -28,6 +28,7 @@ func Init() {
 	dbname := getEnv("PGDATABASE","postgres")
 	
 	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",user,pass,host,port,dbname)
+	DB, err = sql.Open("pgx",dsn)
 	DB.SetMaxOpenConns(10)
 	DB.SetMaxIdleConns(5)
 	DB.SetConnMaxLifetime(30*time.Minute)
@@ -41,7 +42,7 @@ func Init() {
 }
 
 func getEnv(key, fallback string) string {
-	if vak := os.Getenv(key); val != "" {
+	if val := os.Getenv(key); val != "" {
 		return val
 	}
 	return fallback
