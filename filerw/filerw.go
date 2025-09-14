@@ -20,29 +20,32 @@ func Read(name string) (string, error) {
 }
 
 func ReadFileToMap(name string) (map[string]string, error) {
-	content, err := Read(name)
-	if err != nil {
-		return nil, err
-	}
+    content, err := Read(name)
+    if err != nil {
+        return nil, err
+    }
 
-	lines := strings.Split(content, "\n")
-	result := make(map[string]string)
+    lines := strings.Split(content, "\n")
+    result := make(map[string]string)
 
-	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		if line == "" {
-			continue 
-		}
+    for i, line := range lines {
+        line = strings.TrimSpace(line)
+        if line == "" {
+            continue
+        }
 
-		parts := strings.Fields(line)
-		if len(parts) < 2 {
-			continue 
-		}
+        parts := strings.Fields(line)
+        if len(parts) < 2 {
+            fmt.Printf("Warning: line %d is malformed: %q\n", i+1, line)
+            continue
+        }
 
-		key := parts[0]
-		value := parts[1]
-		result[key] = value
-	}
+        key := parts[0]
+        value := strings.Join(parts[1:], " ")
+        result[key] = value
+    }
 
-	return result, nil
+    return result, nil
 }
+
+
