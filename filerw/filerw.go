@@ -7,7 +7,7 @@ import "fmt"
 import "os"
 
 func Write(name string, content string) error{
-	return os.WriteFile(nome, []byte(content), 0644)
+	return os.WriteFile(name, []byte(content), 0644)
 }
 
 func Read(name string) (string, error) {
