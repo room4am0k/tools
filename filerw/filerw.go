@@ -30,12 +30,12 @@ func ReadFileToMap(name string) (map[string]string, error) {
 	for _, line := range lines {
 		line = strings.TrimSpace(line)
 		if line == "" {
-			continue // Ignora líneas vacías
+			continue 
 		}
 
 		parts := strings.Fields(line)
 		if len(parts) < 2 {
-			continue // Ignora líneas que no tengan al menos dos palabras
+			continue 
 		}
 
 		key := parts[0]
