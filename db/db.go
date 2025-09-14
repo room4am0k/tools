@@ -29,6 +29,10 @@ func Init() {
 	
 	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",user,pass,host,port,dbname)
 	DB, err = sql.Open("pgx",dsn)
+
+	if err != nil{
+		log.Fatalf("[1] Failed to connect: %v", err)
+	}
 	DB.SetMaxOpenConns(10)
 	DB.SetMaxIdleConns(5)
 	DB.SetConnMaxLifetime(30*time.Minute)
@@ -36,7 +40,7 @@ func Init() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	if err := DB.PingContext(ctx); err != nil{
-		log.Fatalf("[1] Not connected: %v", err)
+		log.Fatalf("[2] Failed to ping: %v", err)
 	}
 	log.Println("Connected to DB")
 }
